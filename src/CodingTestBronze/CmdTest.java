@@ -1,4 +1,4 @@
-package CodingTest;
+package CodingTestBronze;
 import java.util.*;
 
 public class CmdTest {
