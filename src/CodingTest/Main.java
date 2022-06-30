@@ -1,30 +1,22 @@
 package CodingTest;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Main {
-    public static final int MAX = 1000000;
-    public static void main(String[] args) {
-        Scanner s = new Scanner(System.in);
-        int i;
-        boolean[] primeNum = new boolean[MAX+1];
-        for(i=2;i<MAX/2+1;i++){
-            for(int j=i*2;j<MAX+1;j+=i){
-                primeNum[j]=true;
-            }
-        }
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        while(true){
-            int input = s.nextInt();
-            boolean flag = false;
-            if(input == 0 ) break;
-            for(i=3;i<(input/2);i++){
-                if(!primeNum[i]&&!primeNum[(input-i)]){
-                    System.out.println(input+" = "+i+" + "+(input-i));
-                    flag = true;
-                    break;
-                }
-            }
-            if(!flag) System.out.println("Goldbach's conjecture is wrong.");
+        int n = Integer.parseInt(br.readLine());
+        int[] a = new int[n];
+        for (int i = 0; i < n; i++) {
+            a[i] = Integer.parseInt(br.readLine());
         }
+        Arrays.sort(a);
+        for (int i = 0; i < n; i++) {
+            bw.write(a[i]+"\n");
+        }
+        bw.flush();
+        bw.close();
     }
 }
