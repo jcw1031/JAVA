@@ -15,5 +15,5 @@ public class Main {
             if (max < total) max = total;
         }
         System.out.println(max);
-    }
+    } 
 }
