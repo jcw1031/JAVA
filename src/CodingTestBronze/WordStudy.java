@@ -5,7 +5,7 @@ public class WordStudy {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
 
-        Integer[] count = new Integer['Z'-'A'+1];
+        int[] count = new int['Z'-'A'+1];
         String input = s.next();
         String convert = input.toUpperCase();
 
@@ -18,12 +18,21 @@ public class WordStudy {
             int index = convert.charAt(i)-'A';
             count[index]++;
         }
-        Integer[] tmp = new Integer[count.length];
+        int[] tmp = new int[count.length];
         for(int i=0;i<count.length;i++){
             tmp[i]=count[i];
         }
 
-        Arrays.sort(tmp, Collections.reverseOrder());
+        for(int i=0;i<tmp.length-1;i++){
+            for(int j=i+1;j<tmp.length;j++){
+                if(tmp[i]<tmp[j]){
+                    int tt = tmp[j];
+                    tmp[j]=tmp[i];
+                    tmp[i]=tt;
+                }
+            }
+        }
+
         if(tmp[0]==tmp[1]) System.out.print("?");
         else{
             int max =0;
@@ -34,7 +43,7 @@ public class WordStudy {
                     out = (char)(i+'A');
                 }
             }
-            System.out.println(out);
+            System.out.print(out);
         }
     }
 }
