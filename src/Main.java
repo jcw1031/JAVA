@@ -1,27 +1,41 @@
-import java.awt.desktop.AboutHandler;
 import java.io.*;
-import java.nio.Buffer;
 import java.util.*;
 
-public class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        HashMap<Long, Long> map = new HashMap<>();
+class Value{
+    String key;
+    int value1, value2;
 
-        long n = Long.parseLong(st.nextToken());
-        long p = Long.parseLong(st.nextToken());
-        long q = Long.parseLong(st.nextToken());
-        System.out.println(array(n, p, q));
+    public Value(String key, int value1, int value2){
+        this.key=key;
+        this.value1 = value1;
+        this.value2 = value2;
     }
+}
 
-    public static int array(long n, long p, long q){
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        if(n<1){
+public class Main{
+    static HashMap<Integer, Integer> map = new LinkedHashMap<Integer, Integer>();
+    public static int fibonacci(int n){
+        if(n==0){
+            return 0;
+        }
+        else if(n==1){
             return 1;
         }
         else{
-            return array(n/p, p, q)+array(n/q, p, q);
+
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        map.put(0, 0);
+        map.put(1, 0);
+        int t = Integer.parseInt(br.readLine());
+        int in;
+        for(int i=0;i<t;i++){
+            in=Integer.parseInt(br.readLine());
+            fibonacci(in);
         }
     }
 }
