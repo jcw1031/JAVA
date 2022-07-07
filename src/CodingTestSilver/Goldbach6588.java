@@ -1,7 +1,7 @@
 package CodingTestSilver;
 import java.util.Scanner;
 
-public class Goldbach {
+public class Goldbach6588 {
     public static final int MAX = 1000000;
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
