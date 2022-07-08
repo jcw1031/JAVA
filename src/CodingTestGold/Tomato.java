@@ -1,4 +1,7 @@
 package CodingTestGold;
+/* DFS, BFS 함수 + 재귀함수를
+    이용해서 해보기
+                */
 
 import java.io.*;
 import java.util.*;
@@ -10,6 +13,7 @@ public class Tomato {
         int m = Integer.parseInt(st.nextToken());
         int n = Integer.parseInt(st.nextToken());
         int[][] to = new int[n][m];
+        boolean[][] flag = new boolean[n][m];
         for (int i = 0; i < n; i++) {
             st = new StringTokenizer(br.readLine());
             for (int j = 0; j < m; j++) {
@@ -17,39 +21,32 @@ public class Tomato {
             }
         }
         int count = 0;
-        boolean end = false;
+        boolean flag2 = false;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(to[i][j]==0){
+                    if(i>0){
+                        switch(to[i-1][j]){
+                            case 1 : {
+                                flag2=true;
+                                break;
+                            }
+                            case -1 : {
 
-        do {
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < m; j++) {
-                    int flag = 0;
-                    if(i>0&&to[i][j]==0&&to[i-1][j]==-1) flag++;
-                    if(i<n-1&&to[i][j]==0&&to[i+1][j]==-1) flag++;
-                    if(j>0&&to[i][j]==0&&to[i][j-1]==-1) flag++;
-                    if(j<m-1&&to[i][j]==0&&to[i][j+1]==-1) flag++;
-                    if ((i != 0 && i != n - 1 && j != 0 && j != m - 1) && flag == 4) {
-                        System.out.println(-1);
-                        System.exit(0);
-                    } else if ((i == 0 || i == n - 1) && (j == 0 || j == m - 1) && flag == 2) {
-                        System.out.println(-1);
-                        System.exit(0);
-                    } else if ((i == 0 || i == n - 1 || j == 0 || j == m - 1) && flag == 3) {
-                        System.out.println(-1);
-                        System.exit(0);
+                            }
+                        }
                     }
-
-                    if(to[i][j]==1){
-                        if(i>0&&to[i-1][j] == 0) to[i-1][j]=1;
-                    }
-
                 }
             }
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < m; j++) {
-                    if (to[i][j] == 0) end = false;
-                }
-            }
-        } while (end);
+        }
+
+
+
+
+
+
+
+
         System.out.println(count);
     }
 }

@@ -1,7 +1,7 @@
 package CodingTestSilver;
 import java.util.Scanner;
 
-public class GroupWordChecker {
+public class GroupWordChecker1316 {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
         int N = s.nextInt();

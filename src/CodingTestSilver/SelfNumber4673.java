@@ -1,6 +1,6 @@
 package CodingTestSilver;
 
-public class SelfNumber {
+public class SelfNumber4673 {
     public static void main(String[] args) {
         boolean[] selfNum = new boolean[10000];
         int result, tmp;

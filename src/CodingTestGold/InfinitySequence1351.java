@@ -3,7 +3,7 @@ package CodingTestGold;
 import java.io.*;
 import java.util.*;
 
-public class InfinitySequence {
+public class InfinitySequence1351 {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     static long n;
     static long p;

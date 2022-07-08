@@ -1,7 +1,8 @@
-import java.io.*;
-import java.util.*;
+package CodingTestSilver;
 
-public class Main {
+import java.io.*;
+
+public class StoneGameThird9657 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
