@@ -4,57 +4,38 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class Main {
-    public static int h, w;
-    public static int[][] map;
-
-    public static boolean dfs(int y, int x){
-        if(x<0 || x>=w || y<0 || y>=h){
-            return false;
-        }
-        if(map[y][x] == 1){
-            map[y][x]=0;
-
-            dfs(y-1, x);
-            dfs(y+1, x);
-            dfs(y, x-1);
-            dfs(y, x+1);
-            dfs(y-1, x-1);
-            dfs(y+1, x-1);
-            dfs(y-1, x+1);
-            dfs(y+1, x+1);
-            return true;
-        }
-        return false;
-    }
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
 
-        while(true){
+        int n = Integer.parseInt(br.readLine());
+        int[][] value = new int[n][3];
+        ArrayList<HashMap<Integer, Integer>> list = new ArrayList<>();
+        for(int i=0;i<n;i++){
+            list.add(new HashMap<>());
             st = new StringTokenizer(br.readLine());
-            w=Integer.parseInt(st.nextToken());
-            h = Integer.parseInt(st.nextToken());
-            if(w == h && w ==0) break;
-            map = new int[h][w];
-            for(int i=0;i<h;i++){
-                st = new StringTokenizer(br.readLine());
-                for(int j=0;j<w;j++){
-                    map[i][j] = Integer.parseInt(st.nextToken());
-                }
+            for(int j=0;j<3;j++){
+                list.get(i).put(j, Integer.parseInt(st.nextToken()));
             }
+        }
 
-            int count = 0;
-            for(int i=0;i<h;i++){
-                for(int j=0;j<w;j++){
-                    if(map[i][j] == 1){
-                        if(dfs(i, j)){
-                            count++;
-                        }
-                    }
-                }
+        
+
+        value[0][0] = list.get(0).get(0);
+        value[0][1] = list.get(0).get(1);
+        value[0][2] = list.get(0).get(2);
+
+        int first;
+        int second;
+        int third;
+        int min = value[0][0];
+        for(int i=1;i<3;i++){
+            if(min)
+        }
+        for(int i=1;i<list.size();i++){
+            for(int j=0;j<list.get(i).size();j++){
+
             }
-            System.out.println(count);
         }
     }
 }
