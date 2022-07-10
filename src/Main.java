@@ -1,41 +1,54 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
-
+        StringBuilder sb = new StringBuilder();
         int n = Integer.parseInt(br.readLine());
-        int[][] value = new int[n][3];
-        ArrayList<HashMap<Integer, Integer>> list = new ArrayList<>();
-        for(int i=0;i<n;i++){
-            list.add(new HashMap<>());
-            st = new StringTokenizer(br.readLine());
-            for(int j=0;j<3;j++){
-                list.get(i).put(j, Integer.parseInt(st.nextToken()));
+        String[] input = new String[n];
+
+        for (int i = 0; i < n; i++) {
+            input[i] = br.readLine();
+        }
+
+        String tmp;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (input[i].length() == input[j].length()) {
+                    if (compareString(input[i], input[j]) > 0) {
+                        tmp = input[i];
+                        input[i] = input[j];
+                        input[j] = tmp;
+                    }
+                }
+                else if (input[i].length() > input[j].length()) {
+                    tmp = input[i];
+                    input[i] = input[j];
+                    input[j] = tmp;
+                }
             }
         }
-
-        
-
-        value[0][0] = list.get(0).get(0);
-        value[0][1] = list.get(0).get(1);
-        value[0][2] = list.get(0).get(2);
-
-        int first;
-        int second;
-        int third;
-        int min = value[0][0];
-        for(int i=1;i<3;i++){
-            if(min)
-        }
-        for(int i=1;i<list.size();i++){
-            for(int j=0;j<list.get(i).size();j++){
-
+        int j=1;
+        for(int i=0;i<n-1;i++, j++){
+            tmp=input[j];
+            if(j!=n-1&&!tmp.equals(input[i])) {
+                sb.append(input[i]).append('\n');
+            }
+            else if(j==n-1){
+                if(!tmp.equals(input[j-1])) {
+                    sb.append(input[i]).append('\n');
+                    sb.append(input[j]).append('\n');
+                }
+                else{
+                    sb.append(input[j]).append('\n');
+                }
             }
         }
+        System.out.print(sb);
+    }
+    public static int compareString(String a, String b){
+        int result = a.compareTo(b);
+        return result;
     }
 }

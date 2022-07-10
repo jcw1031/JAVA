@@ -1,7 +1,7 @@
 package DataStructureIncarnation;
 
 public class BubbleSort {
-    int[] data={31, 6, 10, 37, 15};
+    int[] data={14, 5, 43, 27, 18, 31, 37, 88, 6, 35};
     final int SIZE = data.length;
 
     public void sorting(){

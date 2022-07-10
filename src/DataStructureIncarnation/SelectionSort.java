@@ -1,7 +1,7 @@
 package DataStructureIncarnation;
 
 public class SelectionSort {
-    int[] data = {40, 23, 74, 5, 65, 58, 90, 36, 99, 88};
+    int[] data = {14, 5, 43, 27, 18, 31, 37, 88, 6, 35};
     final int SIZE = data.length;
 
     public void sorting(){
