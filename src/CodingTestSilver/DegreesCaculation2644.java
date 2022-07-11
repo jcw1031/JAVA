@@ -1,7 +1,9 @@
-import java.util.*;
-import java.io.*;
+package CodingTestSilver;
 
-public class Main{
+import java.io.*;
+import java.util.*;
+
+public class DegreesCaculation2644 {
     public static ArrayList<ArrayList<Integer>> list = new ArrayList<>();
     public static HashMap<Integer, Integer> distanceA = new HashMap<>();
     public static HashMap<Integer, Integer> distanceB = new HashMap<>();
@@ -42,7 +44,7 @@ public class Main{
         StringTokenizer st;
 
         int n = Integer.parseInt(br.readLine());
-        for(int i=0;i<n+1;i++){
+        for (int i = 0; i < n + 1; i++) {
             list.add(new ArrayList<>());
         }
 
@@ -52,7 +54,7 @@ public class Main{
 
         int m = Integer.parseInt(br.readLine());
 
-        for(int i=0;i<m;i++){
+        for (int i = 0; i < m; i++) {
             st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
@@ -62,7 +64,7 @@ public class Main{
 
         int min = dfs(findA, findB);
 
-        if(min==-1) System.out.println(-1);
+        if (min == -1) System.out.println(-1);
         else System.out.println(min);
     }
 }
