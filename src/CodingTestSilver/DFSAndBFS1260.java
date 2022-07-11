@@ -10,6 +10,7 @@ public class DFSAndBFS1260 {
     public static boolean[] visited;
     public static String dfsResult = "";
     public static String bfsResult = "";
+    
     public static void dfs(int x){
         visited[x]=true;
         dfsResult += x+" ";

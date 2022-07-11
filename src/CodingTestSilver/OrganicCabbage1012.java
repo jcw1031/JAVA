@@ -1,7 +1,9 @@
+package CodingTestSilver;
+
 import java.io.*;
 import java.util.*;
 
-public class Main{
+public class OrganicCabbage1012{
     public static int n, m;
     public static int[][] field;
     public static boolean[][] visited;
