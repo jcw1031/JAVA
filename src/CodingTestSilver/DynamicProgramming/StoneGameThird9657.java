@@ -1,4 +1,4 @@
-package CodingTestSilver;
+package CodingTestSilver.DynamicProgramming;
 
 import java.io.*;
 

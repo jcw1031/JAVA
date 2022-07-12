@@ -1,4 +1,4 @@
-package CodingTestSilver;
+package CodingTestSilver.Math;
 import java.util.Scanner;
 
 public class Goldbach6588 {

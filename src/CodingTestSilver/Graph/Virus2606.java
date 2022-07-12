@@ -1,4 +1,4 @@
-package CodingTestSilver;
+package CodingTestSilver.Graph;
 
 import java.util.*;
 import java.io.*;

@@ -1,4 +1,4 @@
-package CodingTestSilver;
+package CodingTestSilver.BruteForce;
 
 import java.io.*;
 import java.util.*;

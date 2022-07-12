@@ -1,4 +1,4 @@
-package CodingTestGold;
+package CodingTestGold.DynamicProgramming;
 
 import java.io.*;
 import java.util.*;

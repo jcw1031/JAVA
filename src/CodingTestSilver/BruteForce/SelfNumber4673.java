@@ -1,4 +1,4 @@
-package CodingTestSilver;
+package CodingTestSilver.BruteForce;
 
 public class SelfNumber4673 {
     public static void main(String[] args) {

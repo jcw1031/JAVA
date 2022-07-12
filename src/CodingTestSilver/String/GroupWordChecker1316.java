@@ -1,4 +1,4 @@
-package CodingTestSilver;
+package CodingTestSilver.String;
 import java.util.Scanner;
 
 public class GroupWordChecker1316 {

@@ -1,4 +1,4 @@
-package CodingTestGold;
+package CodingTestGold.Graph;
 
 import java.io.BufferedReader;
 import java.io.IOException;

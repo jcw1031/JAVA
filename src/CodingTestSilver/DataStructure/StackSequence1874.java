@@ -1,4 +1,4 @@
-package CodingTestSilver;
+package CodingTestSilver.DataStructure;
 
 import java.io.*;
 import java.util.*;
