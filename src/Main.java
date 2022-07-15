@@ -1,88 +1,65 @@
 import java.util.*;
 import java.io.*;
 
-public class Main{
-    public static ArrayList<HashMap<Integer, Integer>> list = new ArrayList<>();
-    public static int[] parent;
-    public static Queue<Integer> queue = new LinkedList<>();
-    public static boolean[] visited;
-
-    public static void bfs(int start) {
-        queue.offer(start);
-        visited[start] = true;
-        while(!queue.isEmpty()){
-            int tmp = queue.poll();
-            for(int key : list.get(tmp).keySet()){
-                if(!visited[key]) {
-                    queue.offer(key);
-                    visited[key] = true;
-                    parent[key] = tmp;
-                }
-            }
-        }
-    }
-
+public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer st;
 
-        int n = Integer.parseInt(st.nextToken());
-        int m = Integer.parseInt(st.nextToken());
-        parent = new int[n+1];
-        visited = new boolean[n+1];
-        for(int i=0;i<n+1;i++){
-            list.add(new HashMap<>());
-        }
-        for(int i=0;i<n-1;i++){
-            st = new StringTokenizer(br.readLine());
-            int a = Integer.parseInt(st.nextToken());
-            int b = Integer.parseInt(st.nextToken());
-            int c = Integer.parseInt(st.nextToken());
+        int t = Integer.parseInt(br.readLine());
+        for (; t > 0; t--) {
+            boolean flag = true;
+            String op = br.readLine();
+            int size = Integer.parseInt(br.readLine());
+            //String sequence = br.readLine();
+            st = new StringTokenizer(br.readLine(), "[],");
 
-            list.get(a).put(b, c);
-            list.get(b).put(a, c);
-        }
+            //sequence = sequence.substring(1, sequence.length() - 1);
+            //String[] arr = sequence.split(",");
 
-        bfs(1);
+            ArrayList<Integer> list = new ArrayList<Integer>();
 
-        for(int i=0;i<m;i++){
-            st = new StringTokenizer(br.readLine());
-
-            int findA = Integer.parseInt(st.nextToken());
-            int findB = Integer.parseInt(st.nextToken());
-
-            HashMap<Integer,Integer> parentListA = new HashMap<>();
-            HashMap<Integer,Integer> parentListB = new HashMap<>();
-
-            int tmp = findA;
-            int input = 0;
-            parentListA.put(findA, input);
-            while(parent[tmp]!=0){
-                input += list.get(tmp).get(parent[tmp]);
-                parentListA.put(parent[tmp], input);
-                tmp = parent[tmp];
-                if(parent[tmp] == 0 ) break;
+            for (int i = 0; i < size; i++) {
+                list.add(Integer.parseInt(st.nextToken()));
             }
 
-            tmp = findB;
-            input = 0;
-            parentListB.put(findB, input);
-            while(parent[tmp]!=0){
-                input += list.get(tmp).get(parent[tmp]);
-                parentListB.put(parent[tmp], input);
-                tmp = parent[tmp];
-                if(parent[tmp] == 0 ) break;
-            }
-
-
-            ArrayList<Integer> temp = new ArrayList<>();
-            for(int key : parentListA.keySet()){
-                if(parentListB.containsKey(key)){
-                    temp.add(parentListA.get(key)+parentListB.get(key));
+            try {
+                int pointer = 0;
+                for (int i = 0; i < op.length(); i++) {
+                    if (!flag) break;
+                    switch (op.charAt(i)) {
+                        case 'R': {
+                            if (pointer == 0) {
+                                pointer = list.size() - 1;
+                            } else {
+                                pointer = 0;
+                            }
+                            break;
+                        }
+                        case 'D': {
+                            if(list.size()==0) throw new Exception();
+                            list.remove(pointer);
+                            if (pointer != 0) {
+                                pointer--;
+                            }
+                            break;
+                        }
+                    }
                 }
+                if (pointer != 0) {
+                    Collections.reverse(list);
+                }
+                bw.write("[");
+                for(int i=0;i<list.size()-1;i++){
+                    bw.write(list.get(i)+",");
+                }
+                if(list.size()!=0) bw.write(""+list.get(list.size()-1));
+                bw.write("]\n");
+                bw.flush();
+            } catch (Exception e) {
+                System.out.println("error");
             }
-
-            System.out.println(Collections.min(temp));
         }
     }
 }
