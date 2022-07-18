@@ -1,29 +1,24 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
-import java.io.*;
 
 public class Main {
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
-        PriorityQueue<Integer> pQueue = new PriorityQueue<>();
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+        int[][] paper = new int[n][m];
 
-        int n = Integer.parseInt(br.readLine());
         for(int i=0;i<n;i++){
-            pQueue.add(Integer.parseInt(br.readLine()));
+            st = new StringTokenizer(br.readLine());
+            for(int j=0;j<m;j++){
+                paper[i][j] = Integer.parseInt(st.nextToken());
+            }
         }
 
-        int tmp = 0;
-        int sum = 0;
-        while(true){
-            if(pQueue.size() == 1) break;
-
-            tmp = pQueue.poll();
-            tmp+=pQueue.poll();
-            sum+=tmp;
-            pQueue.add(tmp);
-        }
-
-        System.out.println(sum);
+        
     }
 }
