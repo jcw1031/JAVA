@@ -1,7 +1,9 @@
+package CodingTestGold.Graph;
+
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class Iceberg2573 {
     public static int[][] iceberg;
     public static int[][] tmp;
     public static boolean[][] visited;
