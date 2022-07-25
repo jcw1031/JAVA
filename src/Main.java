@@ -5,35 +5,30 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st = new StringTokenizer(br.readLine());
+        StringTokenizer st;
 
-        int n = Integer.parseInt(st.nextToken());
-        int m = Integer.parseInt(st.nextToken());
-        HashMap<String, Integer> map = new HashMap<>();
+        int n = Integer.parseInt(br.readLine());
+        ArrayList<Integer> list = new ArrayList<>();
+        HashMap<Integer, Integer> map = new HashMap<>();
 
-        while(n-->0){
-            String name = br.readLine();
-            map.put(name, 0);
+        st = new StringTokenizer(br.readLine());
+        for(int i=0;i<n;i++){
+            list.add(Integer.parseInt(st.nextToken()));
+            map.put(list.get(i), 0);
         }
 
-        ArrayList<String> list = new ArrayList<>();
-        while(m-->0){
-            String name = br.readLine();
-            if(map.containsKey(name)){
-                list.add(name);
-            }
-            //map.put(name, map.getOrDefault(name, -1)+1);
+        ArrayList<Integer> tmp = new ArrayList<>();
+        for(int key : map.keySet()){
+            tmp.add(key);
+        }
+        Collections.sort(tmp);
 
-            /*if(list.contains(name)){
-                count++;
-                bw.write(name+"\n");
-            }*/
+        for(int i=0;i<tmp.size();i++){
+            map.put(tmp.get(i), i);
         }
 
-        Collections.sort(list);
-        System.out.println(list.size());
         for(int i=0;i<list.size();i++){
-            bw.write(list.get(i)+"\n");
+            bw.write(map.get(list.get(i))+" ");
         }
         bw.flush();
         bw.close();
