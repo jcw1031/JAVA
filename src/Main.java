@@ -5,30 +5,27 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st;
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int n = Integer.parseInt(br.readLine());
-        ArrayList<Integer> list = new ArrayList<>();
-        HashMap<Integer, Integer> map = new HashMap<>();
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+        HashMap<String, Integer> name = new HashMap<>();
+        HashMap<Integer, String> num = new HashMap<>();
 
-        st = new StringTokenizer(br.readLine());
-        for(int i=0;i<n;i++){
-            list.add(Integer.parseInt(st.nextToken()));
-            map.put(list.get(i), 0);
+        for(int i=1;i<=n;i++){
+            String tmp = br.readLine();
+            name.put(tmp, i);
+            num.put(i, tmp);
         }
 
-        ArrayList<Integer> tmp = new ArrayList<>();
-        for(int key : map.keySet()){
-            tmp.add(key);
-        }
-        Collections.sort(tmp);
-
-        for(int i=0;i<tmp.size();i++){
-            map.put(tmp.get(i), i);
-        }
-
-        for(int i=0;i<list.size();i++){
-            bw.write(map.get(list.get(i))+" ");
+        while(m-->0){
+            String search = br.readLine();
+            if(Character.isDigit(search.charAt(0))){
+                bw.write(num.get(Integer.parseInt(search))+"\n");
+            }
+            else{
+                bw.write(name.get(search)+"\n");
+            }
         }
         bw.flush();
         bw.close();
