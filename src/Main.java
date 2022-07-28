@@ -5,29 +5,33 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st = new StringTokenizer(br.readLine());
+        StringTokenizer st;
 
-        int n = Integer.parseInt(st.nextToken());
-        int m = Integer.parseInt(st.nextToken());
-        HashMap<String, Integer> name = new HashMap<>();
-        HashMap<Integer, String> num = new HashMap<>();
+        int n = Integer.parseInt(br.readLine());
+        int[][] rgb = new int[n][3];
+        int[][] result = new int[n][3];
 
-        for(int i=1;i<=n;i++){
-            String tmp = br.readLine();
-            name.put(tmp, i);
-            num.put(i, tmp);
+        for(int i=0;i<n;i++){
+            st = new StringTokenizer(br.readLine());
+            rgb[i][0] = Integer.parseInt(st.nextToken());
+            rgb[i][1] = Integer.parseInt(st.nextToken());
+            rgb[i][2] = Integer.parseInt(st.nextToken());
         }
 
-        while(m-->0){
-            String search = br.readLine();
-            if(Character.isDigit(search.charAt(0))){
-                bw.write(num.get(Integer.parseInt(search))+"\n");
-            }
-            else{
-                bw.write(name.get(search)+"\n");
-            }
+        result[0][0] = rgb[0][0];
+        result[0][1] = rgb[0][1];
+        result[0][2] = rgb[0][2];
+
+        for(int i=1;i<n;i++){
+            result[i][0] = (result[i-1][1]>result[i-1][2]?result[i-1][2]:result[i-1][1])+rgb[i][0];
+            result[i][1] = (result[i-1][0]>result[i-1][2]?result[i-1][2]:result[i-1][0])+rgb[i][1];
+            result[i][2] = (result[i-1][0]>result[i-1][1]?result[i-1][1]:result[i-1][0])+rgb[i][2];
         }
-        bw.flush();
-        bw.close();
+
+        int min = result[n-1][0];
+        for(int i=1;i<3;i++){
+            if(min>result[n-1][i]) min = result[n-1][i];
+        }
+        System.out.println(min);
     }
 }
