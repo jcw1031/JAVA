@@ -1,41 +1,39 @@
 package CodingTestSilver.DynamicProgramming;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 
 public class DistanceOfRGB1149 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st;
 
         int n = Integer.parseInt(br.readLine());
-        int[][] value = new int[n][3];
-        ArrayList<HashMap<Integer, Integer>> list = new ArrayList<>();
+        int[][] rgb = new int[n][3];
+        int[][] result = new int[n][3];
+
         for(int i=0;i<n;i++){
-            list.add(new HashMap<>());
             st = new StringTokenizer(br.readLine());
-            for(int j=0;j<3;j++){
-                list.get(i).put(j, Integer.parseInt(st.nextToken()));
-            }
+            rgb[i][0] = Integer.parseInt(st.nextToken());
+            rgb[i][1] = Integer.parseInt(st.nextToken());
+            rgb[i][2] = Integer.parseInt(st.nextToken());
         }
 
-        value[0][0] = list.get(0).get(0);
-        value[0][1] = list.get(0).get(1);
-        value[0][2] = list.get(0).get(2);
+        result[0][0] = rgb[0][0];
+        result[0][1] = rgb[0][1];
+        result[0][2] = rgb[0][2];
 
-        int first;
-        int second;
-        int third;
-        int min = value[0][0];
+        for(int i=1;i<n;i++){
+            result[i][0] = (result[i-1][1]>result[i-1][2]?result[i-1][2]:result[i-1][1])+rgb[i][0];
+            result[i][1] = (result[i-1][0]>result[i-1][2]?result[i-1][2]:result[i-1][0])+rgb[i][1];
+            result[i][2] = (result[i-1][0]>result[i-1][1]?result[i-1][1]:result[i-1][0])+rgb[i][2];
+        }
+
+        int min = result[n-1][0];
         for(int i=1;i<3;i++){
-            //if(min)
+            if(min>result[n-1][i]) min = result[n-1][i];
         }
-        for(int i=1;i<list.size();i++){
-            for(int j=0;j<list.get(i).size();j++){
-
-            }
-        }
+        System.out.println(min);
     }
 }
