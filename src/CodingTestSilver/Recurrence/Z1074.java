@@ -1,7 +1,9 @@
+package CodingTestSilver.Recurrence;
+
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class Z1074 {
     public static int n, r, c;
     public static int count = 0;
 
