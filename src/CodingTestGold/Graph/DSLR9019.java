@@ -1,7 +1,9 @@
+package CodingTestGold.Graph;
+
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class DSLR9019 {
     public static Queue<String> queue;
     public static boolean[] visited;
     public static int b;
@@ -60,7 +62,7 @@ public class Main {
                 if(Integer.parseInt(temp[3]) == b) return;
                 queue.add(temp[3]);
                 visited[Integer.parseInt(temp[3])] = true;
-             }
+            }
         }
     }
     public static void main(String[] args) throws IOException {
@@ -68,25 +70,25 @@ public class Main {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st;
 
-       int t = Integer.parseInt(br.readLine());
+        int t = Integer.parseInt(br.readLine());
 
-       while(t-->0){
-           result = new String[10000];
-           visited = new boolean[10000];
-           queue = new LinkedList<>();
-           st = new StringTokenizer(br.readLine());
+        while(t-->0){
+            result = new String[10000];
+            visited = new boolean[10000];
+            queue = new LinkedList<>();
+            st = new StringTokenizer(br.readLine());
 
-           String a = st.nextToken();
-           b = Integer.parseInt(st.nextToken());
+            String a = st.nextToken();
+            b = Integer.parseInt(st.nextToken());
 
-           queue.add(a);
-           visited[Integer.parseInt(a)] = true;
-           result[Integer.parseInt(a)] = "";
-           bfs();
+            queue.add(a);
+            visited[Integer.parseInt(a)] = true;
+            result[Integer.parseInt(a)] = "";
+            bfs();
 
-           bw.write(result[b]+"\n");
-       }
-       bw.flush();
-       bw.close();
+            bw.write(result[b]+"\n");
+        }
+        bw.flush();
+        bw.close();
     }
 }
