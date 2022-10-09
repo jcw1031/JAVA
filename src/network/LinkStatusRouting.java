@@ -60,14 +60,12 @@ public class LinkStatusRouting {
 
     public static void main(String[] args) {
         // 1~N 인덱스를 사용하기 위해서 (N+1) * (N+1) 크기의 2차원 배열을 생성한다.
-        int[][] distance = new int[N+1][N+1]; //LSDB(Link Status Database)
+        int[][] distance = new int[N + 1][N + 1]; //LSDB(Link Status Database)
 
 
     }
 
-    public void flooding(){
+    public void flooding() {
 
     }
-
-    public void
 }

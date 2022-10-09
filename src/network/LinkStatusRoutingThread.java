@@ -9,7 +9,7 @@ class NodeThread implements Runnable{
     private boolean visited;
     private int[] next;
     private int[] cost;
-    private Map<Node, Integer> lsp
+    private Map<Node, Integer> lsp;
 
     @Override
     public void run() {
