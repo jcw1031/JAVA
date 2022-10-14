@@ -8,8 +8,12 @@ public class ProxyTest {
         browser.show();
         browser.show();
         browser.show();
-        browser.show();
-        browser.show();
 
+        IBrowser browser1 = new BrowserProxy("www.naver.com");
+        browser1.show();
+        browser1.show();
+        browser1.show();
+        browser1.show();
+        browser1.show();
     }
 }

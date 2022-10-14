@@ -98,36 +98,16 @@ public class LinkStatusRouting {
      * 플러딩 알고리즘
      */
     private static void flooding() {
-        PriorityQueue<Node.IntegerAndNode> pq = new PriorityQueue<>(new Comparator<Node.IntegerAndNode>() {
-            @Override
-            public int compare(Node.IntegerAndNode i1, Node.IntegerAndNode i2){
-                if(i1.getCost() < i2.getCost()){
-                    return -1;
-                }
-                else if(i1.getCost() > i2.getCost()){
-                    return 1;
-                }
-                else{
-                    return 0;
-                }
-            }
-        });
+//        PriorityQueue<Node.IntegerAndNode> pq = new PriorityQueue<>((i1, i2) -> Integer.compare(i1.getCost(), i2.getCost()));
+
 
         Queue<Node> queue = new LinkedList<>();
         for(int i=1;i<=N;i++){
             clearVisited();
             nodes[i].setVisited(true);
             for(Node key : nodes[i].getLsp().keySet()){
-                pq.add(new Node.IntegerAndNode(nodes[i].getLsp().get(key), key));
                 queue.add(key);
             }
-
-            while(!pq.isEmpty()){
-                Node tmp = pq.poll().getNextNode();
-            }
-
-
-
 
             while(!queue.isEmpty()){
                 Node tmp = queue.poll();
