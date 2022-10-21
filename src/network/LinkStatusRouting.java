@@ -81,6 +81,7 @@ public class LinkStatusRouting {
     static final int INF = Integer.MAX_VALUE; //무한
     static int[][] distance; //LSDB
     static Node[] nodes; //노드 배열
+
     public static void main(String[] args) {
         // 1~N 인덱스를 사용하기 위해서 (N+1) * (N+1) 크기의 2차원 배열을 생성한다.
         distance = new int[N + 1][N + 1]; //LSDB(Link Status Database)
