@@ -6,13 +6,13 @@ import java.util.*;
 /**
  * 노드 클래스
  */
-class Node{
+class Node {
     private String name; //문자 이름
     private boolean visited; //방문 여부
     private Map<Node, Integer> lsp = new HashMap<>(); //링크 상태 패킷
     private Map<Node, IntegerAndNode> routingTable = new HashMap<>(); //라우팅 테이블
 
-    public Node(String name){
+    public Node(String name) {
         this.name = name;
     }
 
@@ -38,6 +38,7 @@ class Node{
 
     public void setLsp(Node node, int cost) {
         this.lsp.put(node, cost);
+
     }
 
     public Map<Node, IntegerAndNode> getRoutingTable() {
@@ -46,22 +47,23 @@ class Node{
 
     /**
      * 라우팅 테이블 수정
+     *
      * @param node
      * @param cost
      * @param nextNode
      */
-    public void setRoutingTable(Node node, int cost, Node nextNode){
+    public void setRoutingTable(Node node, int cost, Node nextNode) {
         this.routingTable.put(node, new IntegerAndNode(cost, nextNode));
     }
 
     /**
      * 라우팅 테이블에 비용과 다음 노드를 함께 저장하기 위한 Node 클래스의 내부 클래스
      */
-    static class IntegerAndNode{
+    static class IntegerAndNode {
         int cost;
         Node nextNode;
 
-        public IntegerAndNode(int cost, Node nextNode){
+        public IntegerAndNode(int cost, Node nextNode) {
             this.cost = cost;
             this.nextNode = nextNode;
         }
@@ -264,4 +266,3 @@ public class LinkStatusRouting {
         }
     }
 }
-
