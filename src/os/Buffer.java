@@ -19,6 +19,7 @@ public class Buffer {
             }
         }
         buf[in] = item;
+        System.out.println("+");
         in = (in + 1) % size;
         notify();
         count++;
@@ -33,6 +34,7 @@ public class Buffer {
             }
         }
         int item = buf[out];
+        System.out.println("-");
         out = (out + 1) % size;
         count--;
         notify();
@@ -51,6 +53,7 @@ class Producer extends Thread {
 
     public void run() {
         for (int i = 0; i < N; i++) {
+            System.out.println("+"+i);
             b.insert(i);
         }
     }
@@ -68,17 +71,17 @@ class Consumer extends Thread {
     public void run() {
         int item;
         for (int i = 0; i < N; i++) {
+            System.out.println("-"+i);
             item = b.remove();
-            System.out.println(item);
         }
     }
 }
 
 class Test {
     public static void main(String[] args) {
-        Buffer b = new Buffer(100);
-        Producer p = new Producer(b, 10000);
-        Consumer c = new Consumer(b, 10000);
+        Buffer b = new Buffer(10);
+        Producer p = new Producer(b, 100);
+        Consumer c = new Consumer(b, 100);
         p.start();
         c.start();
         try {

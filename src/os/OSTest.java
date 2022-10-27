@@ -20,9 +20,14 @@ class BankAccount {
         int temp = balance + amt;
         System.out.print("+");
         balance = temp;
+//        notify();
     }
 
     synchronized void withdraw(int amt) {
+        /*if (balance == 0) {
+            System.out.println("잔액 없음");
+            wait();
+        }*/
         int temp = balance - amt;
         System.out.print("-");
         balance = temp;
@@ -59,6 +64,11 @@ class Child extends Thread {
     public void run() {
         for (int i = 0; i < 100; i++) {
             b.withdraw(1000);
+            /*try {
+                b.withdraw(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }*/
         }
     }
 }
