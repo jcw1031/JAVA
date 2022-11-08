@@ -28,6 +28,7 @@ public class RandomNum {
         return check;
     }
 
+
     public static void main(String[] args) {
         int[] randomNum = randomNum();
         while (!checkNum(randomNum)) {
