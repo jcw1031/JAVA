@@ -23,7 +23,7 @@ public class ReceiveThread extends Thread {
 
             String inputMessage;
 
-            while (true) {
+            /*while (true) {
                 inputMessage = br.readLine();
                 System.out.println("server - " + inputMessage);
 
@@ -33,6 +33,15 @@ public class ReceiveThread extends Thread {
                 } else {
                     System.out.println(name+" : " + inputMessage);
                 }
+            }*/
+
+            inputMessage = br.readLine();
+            System.out.println("server - " + inputMessage);
+
+            if (inputMessage == null) {
+                System.out.println("연결이 끊겼습니다.");
+            } else {
+                System.out.println(name+" : " + inputMessage);
             }
             br.close();
         } catch (IOException e) {

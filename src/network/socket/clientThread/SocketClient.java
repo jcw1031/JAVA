@@ -7,8 +7,9 @@ import java.net.UnknownHostException;
 
 public class SocketClient {
     public static void main(String[] args) {
+        Socket socket;
         try {
-            Socket socket = new Socket(InetAddress.getLocalHost(), 9999);
+            socket = new Socket(InetAddress.getLocalHost(), 9999);
 
             System.out.println(socket);
 

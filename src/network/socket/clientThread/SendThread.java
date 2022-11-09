@@ -24,14 +24,22 @@ public class SendThread extends Thread {
 
             String message;
 
-            while (flag) {
+            /*while (flag) {
                 message = br.readLine();
 
                 System.out.println("여긴 아닐듯");
                 pw.write(message);
                 System.out.println("아마 여기");
                 pw.flush();
-            }
+            }*/
+
+            message = br.readLine();
+
+            System.out.println("여긴 아닐듯");
+            pw.write(message);
+            System.out.println("아마 여기");
+            pw.flush();
+
             pw.close();
             br.close();
             socket.close();

@@ -23,11 +23,16 @@ public class ReceiveThread extends Thread{
 
             String inputMessage;
 
-            while (true) {
+            /*while (true) {
                 inputMessage = br.readLine();
 
                 System.out.println(name+" : "+inputMessage);
-            }
+            }*/
+
+            inputMessage = br.readLine();
+
+            System.out.println(name+" : "+inputMessage);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

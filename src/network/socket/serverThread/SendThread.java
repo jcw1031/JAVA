@@ -23,12 +23,17 @@ public class SendThread extends Thread {
 
             String message;
 
-            while (true) {
+           /* while (true) {
                 message = br.readLine();
 
                 pw.write(message);
                 pw.flush();
-            }
+            }*/
+
+            message = br.readLine();
+
+            pw.write(message);
+            pw.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
