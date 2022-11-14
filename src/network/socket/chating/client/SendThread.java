@@ -1,4 +1,4 @@
-package network.socket.clientThread;
+package network.socket.chating.client;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,7 +8,6 @@ import java.net.Socket;
 
 public class SendThread extends Thread {
     private Socket socket;
-    private boolean flag = true;
 
     public SendThread(Socket socket) {
         this.socket = socket;
@@ -16,7 +15,7 @@ public class SendThread extends Thread {
 
     @Override
     public void run() {
-//        super.run();
+        super.run();
 
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -24,31 +23,31 @@ public class SendThread extends Thread {
 
             String message;
 
-            /*while (flag) {
+            System.out.println("send server");
+
+            System.out.print("사용할 ID : ");
+            ChatClient2.userId = br.readLine();
+
+            pw.println("IDjcw1031"+ ChatClient2.userId);
+            pw.flush();
+
+
+            while (true) {
                 message = br.readLine();
 
-                System.out.println("여긴 아닐듯");
-                pw.write(message);
-                System.out.println("아마 여기");
+                if (message.equals("exit")) {
+                    break;
+                }
+
+                pw.println(message);
                 pw.flush();
-            }*/
-
-            message = br.readLine();
-
-            System.out.println("여긴 아닐듯");
-            pw.write(message);
-            System.out.println("아마 여기");
-            pw.flush();
+            }
 
             pw.close();
             br.close();
-            socket.close();
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public void endClient() {
-        this.flag = false;
     }
 }

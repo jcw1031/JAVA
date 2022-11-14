@@ -6,6 +6,6 @@ public class Study {
     Connection conn;
 
     public Study() {
-        
+
     }
 }

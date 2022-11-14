@@ -1,23 +1,24 @@
-package network.socket.clientThread;
+package network.socket.chating.client;
 
-import java.io.*;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class SocketClient {
-    public static void main(String[] args) {
-        Socket socket;
-        try {
-            socket = new Socket(InetAddress.getLocalHost(), 9999);
+public class ChatClient1 {
+    public static String userId;
 
+    public static void main(String[] args) {
+        try {
+            Socket socket = new Socket("127.0.0.1", 9999);
             System.out.println(socket);
 
-            ReceiveThread receiveThread = new ReceiveThread(socket, "user2");
+            ReceiveThread receiveThread = new ReceiveThread(socket);
             SendThread sendThread = new SendThread(socket);
 
-            receiveThread.start();
             sendThread.start();
+            receiveThread.start();
+
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
