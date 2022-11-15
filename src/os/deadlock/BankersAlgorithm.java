@@ -18,7 +18,7 @@ class Process {
         this.max = max;
 
         for (int i = 0; i < allocation.size(); i++) {
-            need.add(max.get(i) - allocation.get(i));
+            this.need.add(max.get(i) - allocation.get(i));
         }
     }
 
@@ -43,17 +43,46 @@ class Process {
     }
 }
 
+//--------------------------------------------------------------------------
+
 public class BankersAlgorithm {
+
+    private static Process[] processes;
+    private static List<Integer> work;
+    private static boolean[] finish;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
 
         System.out.print("프로세스의 개수 : ");
         int n = Integer.parseInt(br.readLine());
-        Process[] processes = new Process[n];
+
+        initial(n);
+
+        System.out.print("프로세스 번호와 Available [예시 -> 1 2 3 1] : ");
+        st = new StringTokenizer(br.readLine());
+        int index = Integer.parseInt(st.nextToken());
+        List<Integer> available = new ArrayList<>();
+
+        while (st.hasMoreTokens()) {
+            available.add(Integer.parseInt(st.nextToken()));
+        }
+
+        processes[index + 1].setAvailable(available);
+
+
+    }
+
+    public static void initial(int n) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+
+        processes = new Process[n];
+        finish = new boolean[n];
 
         for (int i = 0; i < n; i++) {
-            System.out.print("P"+(i+1)+"의 Allocation(띄어쓰기로 자원 종류별로 입력 [예시 -> 1 3 5]) : ");
+            System.out.print("P"+(i+1)+"의 Allocation(띄어쓰기로 자원 종류 구분 [예시 -> 1 3 5]) : ");
             st = new StringTokenizer(br.readLine());
 
             List<Integer> allocation = new ArrayList<>();
@@ -61,7 +90,7 @@ public class BankersAlgorithm {
                 allocation.add(Integer.parseInt(st.nextToken()));
             }
 
-            System.out.print("P"+(i+1)+"의 Max : ");
+            System.out.print("P"+(i+1)+"의 Max(띄어쓰기로 자원 종류 구분) : ");
             st = new StringTokenizer(br.readLine());
 
             List<Integer> max = new ArrayList<>();
@@ -71,7 +100,8 @@ public class BankersAlgorithm {
 
             processes[i] = new Process(allocation, max);
         }
+    }
 
-
+    public static void setAvailable() {
     }
 }
