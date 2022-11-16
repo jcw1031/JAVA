@@ -148,5 +148,6 @@ public class BankersAlgorithm {
                 return false;
             }
         }
+        return true;
     }
 }
