@@ -11,12 +11,14 @@ class Process {
     private List<Integer> allocation;
     private List<Integer> need;
     private List<Integer> max;
+    private int number;
 
-    public Process(List<Integer> allocation, List<Integer> max) {
+    public Process(List<Integer> allocation, List<Integer> max, int number) {
         this.allocation = allocation;
         this.max = max;
-        this.need = new ArrayList<>();
+        this.number = number;
 
+        this.need = new ArrayList<>();
         for (int i = 0; i < allocation.size(); i++) {
             this.need.add(max.get(i) - allocation.get(i));
         }
@@ -28,6 +30,10 @@ class Process {
 
     public List<Integer> getNeed() {
         return need;
+    }
+
+    public int getNumber() {
+        return number;
     }
 
     public List<Integer> getMax() {
@@ -48,6 +54,7 @@ public class BankersAlgorithm {
     private static boolean[] finish;
     private static List<Integer> available;
     private static int n, m;
+    private static List<Process> safeSequence;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -68,9 +75,15 @@ public class BankersAlgorithm {
         System.out.println("Available : " + available + "\n\n");
 
         bankers();
+
+        System.out.println("\n[ Safe Sequence ]");
+        for (Process process : safeSequence) {
+            System.out.print("P" + process.getNumber() + "\t");
+        }
     }
 
-    /** -----------------------------------------------------------------------------------------------
+    /**
+     * -----------------------------------------------------------------------------------------------
      * 초기화
      */
     public static void initial(int n, int m) throws IOException {
@@ -80,9 +93,10 @@ public class BankersAlgorithm {
         processes = new Process[n];
         finish = new boolean[n];
         available = new ArrayList<>();
+        safeSequence = new ArrayList<>();
 
         for (int i = 0; i < n; i++) {
-            System.out.print("P"+(i+1)+"의 Allocation(띄어쓰기로 자원 종류 구분 [예시 -> 1 3 5]) : ");
+            System.out.print("P" + (i + 1) + "의 Allocation(띄어쓰기로 자원 종류 구분 [예시 -> 1 3 5]) : ");
             st = new StringTokenizer(br.readLine());
 
             List<Integer> allocation = new ArrayList<>();
@@ -91,7 +105,7 @@ public class BankersAlgorithm {
             }
 
 
-            System.out.print("P"+(i+1)+"의 Max(띄어쓰기로 자원 종류 구분) : ");
+            System.out.print("P" + (i + 1) + "의 Max(띄어쓰기로 자원 종류 구분) : ");
             st = new StringTokenizer(br.readLine());
 
             List<Integer> max = new ArrayList<>();
@@ -99,7 +113,7 @@ public class BankersAlgorithm {
                 max.add(Integer.parseInt(st.nextToken()));
             }
 
-            processes[i] = new Process(allocation, max);
+            processes[i] = new Process(allocation, max, i+1);
         }
 
         System.out.print("Available [예시 -> 2 3 1] : ");
@@ -112,7 +126,8 @@ public class BankersAlgorithm {
         setWork(available);
     }
 
-    /** -----------------------------------------------------------------------------------------------
+    /**
+     * -----------------------------------------------------------------------------------------------
      * work 설정 (초기에는 Available로, 이후에는 Allocation을 더한 값으로)
      */
     public static void setWork(List<Integer> input) {
@@ -127,7 +142,8 @@ public class BankersAlgorithm {
         System.out.println("work : " + work);
     }
 
-    /** -----------------------------------------------------------------------------------------------
+    /**
+     * -----------------------------------------------------------------------------------------------
      * Banker's Algorithm
      */
     public static void bankers() {
@@ -138,7 +154,8 @@ public class BankersAlgorithm {
                     flag = compare(processes[i].getNeed(), work);
                     if (flag) {
                         finish[i] = true;
-                        System.out.print("P"+(i+1)+" 완료\t");
+                        System.out.print("P" + (i + 1) + " 완료\t");
+                        safeSequence.add(processes[i]);
                         setWork(processes[i].getAllocation());
                     }
                 }
@@ -146,7 +163,8 @@ public class BankersAlgorithm {
         }
     }
 
-    /** -----------------------------------------------------------------------------------------------
+    /**
+     * -----------------------------------------------------------------------------------------------
      * 모든 프로세스가 완료되었는지 체크
      */
     public static boolean isAllFinished() {
@@ -158,7 +176,8 @@ public class BankersAlgorithm {
         return true;
     }
 
-    /** -----------------------------------------------------------------------------------------------
+    /**
+     * -----------------------------------------------------------------------------------------------
      * 프로세스의 요구량과 사용 가능한 자원의 비교
      */
     public static boolean compare(List<Integer> need, List<Integer> work) {
