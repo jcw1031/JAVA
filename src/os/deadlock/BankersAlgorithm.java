@@ -39,7 +39,7 @@ class Process {
     }
 }
 
-//--------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------
 
 public class BankersAlgorithm {
 
@@ -61,13 +61,16 @@ public class BankersAlgorithm {
 
         initial(n, m);
 
-        System.out.println("\tAllocation\tNeed\t\tMax\t\t\tAvailable");
+        System.out.println("\tAllocation\tNeed\t\tMax");
         for (int i = 0; i < processes.length; i++) {
-            System.out.println("P" + (i + 1) + "\t" + processes[i].toString() + "\t" + available);
+            System.out.println("P" + (i + 1) + "\t" + processes[i].toString());
         }
+        System.out.println("Available : " + available + "\n\n");
+
+        bankers();
     }
 
-    /**
+    /** -----------------------------------------------------------------------------------------------
      * 초기화
      */
     public static void initial(int n, int m) throws IOException {
@@ -76,6 +79,7 @@ public class BankersAlgorithm {
 
         processes = new Process[n];
         finish = new boolean[n];
+        available = new ArrayList<>();
 
         for (int i = 0; i < n; i++) {
             System.out.print("P"+(i+1)+"의 Allocation(띄어쓰기로 자원 종류 구분 [예시 -> 1 3 5]) : ");
@@ -108,6 +112,9 @@ public class BankersAlgorithm {
         setWork(available);
     }
 
+    /** -----------------------------------------------------------------------------------------------
+     * work 설정 (초기에는 Available로, 이후에는 Allocation을 더한 값으로)
+     */
     public static void setWork(List<Integer> input) {
         if (work == null) {
             work = new ArrayList<>();
@@ -117,31 +124,43 @@ public class BankersAlgorithm {
                 work.set(i, work.get(i) + input.get(i));
             }
         }
+        System.out.println("work : " + work);
     }
 
+    /** -----------------------------------------------------------------------------------------------
+     * Banker's Algorithm
+     */
     public static void bankers() {
+        boolean flag;
         while (!isAllFinished()) {
             for (int i = 0; i < n; i++) {
                 if (!finish[i]) {
-                    for (int j = 0; j < m; j++) {
-                        if (processes[i].getNeed().get(j) > work.get(j)) {
-                            break;
-                        }
+                    flag = compare(processes[i].getNeed(), work);
+                    if (flag) {
+                        finish[i] = true;
+                        System.out.print("P"+(i+1)+" 완료\t");
+                        setWork(processes[i].getAllocation());
                     }
                 }
             }
         }
     }
 
+    /** -----------------------------------------------------------------------------------------------
+     * 모든 프로세스가 완료되었는지 체크
+     */
     public static boolean isAllFinished() {
-        for (int i = 0; i < finish.length; i++) {
-            if (!finish[i]) {
+        for (boolean b : finish) {
+            if (!b) {
                 return false;
             }
         }
         return true;
     }
 
+    /** -----------------------------------------------------------------------------------------------
+     * 프로세스의 요구량과 사용 가능한 자원의 비교
+     */
     public static boolean compare(List<Integer> need, List<Integer> work) {
         for (int i = 0; i < m; i++) {
             if (need.get(i) > work.get(i)) {
