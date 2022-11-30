@@ -1,6 +1,11 @@
-import java.net.URL;
+import java.util.*;
 
-public class Test {
-    public static void main(String[] args) {
+class Page {
+    public int pnum, counter,ref;
+    public Page(int pnum) {
+        this.pnum = pnum;
+        this.counter = 0;
+        this.ref = 0;
     }
 }
+
