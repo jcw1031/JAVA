@@ -5,23 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-/*class PageQueue {
-    private Page page;
-    private PageQueue next;
-
-    public PageQueue() {
-        page = null;
-    }
-
-    public Page getPage() {
-        return page;
-    }
-
-    public void setPage(Page page) {
-        this.page = page;
-    }
-}*/
-
 class Page {
     private int num;
     private int referenceBit;

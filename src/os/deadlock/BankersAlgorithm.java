@@ -74,7 +74,7 @@ public class BankersAlgorithm {
         }
         System.out.println("Available : " + available + "\n\n");
 
-        bankers();
+        safety();
 
         System.out.println("\n[ Safe Sequence ]");
         for (Process process : safeSequence) {
@@ -123,6 +123,7 @@ public class BankersAlgorithm {
             available.add(Integer.parseInt(st.nextToken()));
         }
 
+        System.out.println("\n\n");
         setWork(available);
     }
 
@@ -144,20 +145,31 @@ public class BankersAlgorithm {
 
     /**
      * -----------------------------------------------------------------------------------------------
-     * Banker's Algorithm
+     * 안전 상태 확인
      */
-    public static void bankers() {
-        boolean flag;
+    public static void safety() {
+        int count = 0;
         while (!isAllFinished()) {
-            for (int i = 0; i < n; i++) {
-                if (!finish[i]) {
-                    flag = compare(processes[i].getNeed(), work);
-                    if (flag) {
-                        finish[i] = true;
-                        System.out.print("P" + (i + 1) + " 완료\t");
-                        safeSequence.add(processes[i]);
-                        setWork(processes[i].getAllocation());
-                    }
+            count++;
+            checkSafety();
+            if (count > n) {
+                System.out.println("\nUnsafe State!!\n");
+                System.exit(0);
+            }
+        }
+        System.out.println("\nSafe State!!\n");
+    }
+
+    public static void checkSafety() {
+        boolean flag;
+        for (int i = 0; i < n; i++) {
+            if (!finish[i]) {
+                flag = compare(processes[i].getNeed(), work);
+                if (flag) {
+                    finish[i] = true;
+                    System.out.print("P" + (i + 1) + " 완료\t");
+                    safeSequence.add(processes[i]);
+                    setWork(processes[i].getAllocation());
                 }
             }
         }
