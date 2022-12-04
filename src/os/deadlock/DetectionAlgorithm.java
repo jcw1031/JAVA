@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class BankersAlgorithm {
+public class DetectionAlgorithm {
 
     private static Process[] processes;
     private static List<Integer> work;
@@ -28,7 +28,7 @@ public class BankersAlgorithm {
 
         initial(n, m);
 
-        System.out.println("\tAllocation\tNeed\t\tMax");
+        System.out.println("\tAllocation\tNeed\t\tRequest(Max)");
         for (int i = 0; i < processes.length; i++) {
             System.out.println("P" + (i + 1) + "\t" + processes[i].toString());
         }
@@ -64,16 +64,24 @@ public class BankersAlgorithm {
                 allocation.add(Integer.parseInt(st.nextToken()));
             }
 
-
-            System.out.print("P" + (i + 1) + "의 Max(띄어쓰기로 자원 종류 구분) : ");
-            st = new StringTokenizer(br.readLine());
-
-            List<Integer> max = new ArrayList<>();
-            while (st.hasMoreTokens()) {
-                max.add(Integer.parseInt(st.nextToken()));
+            finish[i] = true;
+            for (int j = 0; j < m; j++) {
+                if (allocation.get(j) != 0) {
+                    finish[i] = false;
+                    break;
+                }
             }
 
-            processes[i] = new Process(allocation, max, i+1);
+
+            System.out.print("P" + (i + 1) + "의 Request(띄어쓰기로 자원 종류 구분) : ");
+            st = new StringTokenizer(br.readLine());
+
+            List<Integer> request = new ArrayList<>();
+            while (st.hasMoreTokens()) {
+                request.add(Integer.parseInt(st.nextToken()));
+            }
+
+            processes[i] = new Process(allocation, request, i+1);
         }
 
         System.out.print("Available [예시 -> 2 3 1] : ");
