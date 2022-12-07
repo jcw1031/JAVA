@@ -110,7 +110,6 @@ class Disk {
             }
             int seekTrack = right.poll();
             seekSequence.add(seekTrack);
-            System.out.println(seekTrack);
             moveHead(seekTrack);
         }
     }
