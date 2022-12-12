@@ -100,6 +100,7 @@ class Disk {
                 return;
             }
             int seekTrack = left.poll();
+            System.out.println("seek track : " + seekTrack);
             seekSequence.add(seekTrack);
             moveHead(seekTrack);
         } else {
@@ -109,6 +110,7 @@ class Disk {
                 return;
             }
             int seekTrack = right.poll();
+            System.out.println("seek track : " + seekTrack);
             seekSequence.add(seekTrack);
             moveHead(seekTrack);
         }
