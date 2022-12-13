@@ -1,3 +1,4 @@
+/*
 package os.page;
 
 import java.util.ArrayList;
@@ -5,48 +6,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-class Page {
-    private int num;
-    private int referenceBit;
-
-
-    public Page(int num) {
-        this.num = num;
-        referenceBit = 0;
-    }
-
-    public void referenced() {
-        referenceBit = 1;
-    }
-
-    public boolean checkVictim() {
-        System.out.println("check");
-        if (referenceBit == 1) {
-            System.out.println("참조비트 바껴라..");
-            referenceBit = 0;
-            return false;
-        }
-        return true;
-    }
-
-    public int getReferenceBit() {
-        return referenceBit;
-    }
-
-    @Override
-    public String toString() {
-        return "Page "+num + "["+referenceBit+"]";
-    }
-}
-
 public class SecondChance {
 
-    private static final int SIZE = 3;
-    private static final int[] CALL = {8, 1, 2, 3, 1, 4, 1, 5, 3, 4, 1, 4, 3, 2, 3, 1, 2, 8, 1, 2};
-    private static Queue<Page> queue = new LinkedList<>();
-    private static List<Page> pageTable = new ArrayList<>();
-    private static int victim; //희생자 포인터
-//    private int pointer; //page queue 선택용 포인터
+    static final int SIZE = 3;
+    static final int[] CALL = {8, 1, 2, 3, 1, 4, 1, 5, 3, 4, 1, 4, 3, 2, 3, 1, 2, 8, 1, 2};
+    static Queue<Page> queue = new LinkedList<>();
+    static List<Page> pageTable = new ArrayList<>();
+    static int victim; //희생자 포인터
 
     public static void main(String[] args) {
 
@@ -60,6 +26,7 @@ public class SecondChance {
                 loadPage(page);
             } else {
                 page.referenced();
+                System.out.println(page.getNum()+"번 이미 적재 되어있음(참조)");
             }
         }
     }
@@ -101,10 +68,12 @@ public class SecondChance {
 
     public static void loadPage(Page page) {
         if (pageTableHasEmpty()) {
-            pageTable.add(victim, page);
+            pageTable.set(victim, page);
             increaseVictim();
             page.referenced();
+            System.out.println(page.getNum() + "번 적재(참조)");
         } else {
+            System.out.println("페이지 교체");
             pageReplace(page);
         }
     }
@@ -137,4 +106,4 @@ public class SecondChance {
         }
         System.out.println();
     }
-}
+}*/

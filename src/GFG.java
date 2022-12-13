@@ -1,68 +1,111 @@
-// Java implementation of Best - Fit algorithm
+// Java implementation of the approach
+import java.util.*;
 
-import java.util.Arrays;
+class GFG{
 
-public class GFG
-{
-    // Method to allocate memory to blocks as per Best fit
-    // algorithm
-    static void bestFit(int[] blockSize, int m, int[] processSize, int n)
+    static int size = 8;
+    static int disk_size = 200;
+
+    // Function to perform C-LOOK on the request
+// array starting from the given head
+    public static void CLOOK(int arr[], int head)
     {
-        // Stores block id of the block allocated to a
-        // process
-        int[] allocation = new int[n];
+        int seek_count = 0;
+        int distance, cur_track;
 
-        // Initially no block is assigned to any process
-        Arrays.fill(allocation, -1);
+        Vector<Integer> left = new Vector<Integer>();
+        Vector<Integer> right = new Vector<Integer>();
+        Vector<Integer> seek_sequence = new Vector<Integer>();
 
-        // pick each process and find suitable blocks
-        // according to its size ad assign to it
-        for (int i=0; i<n; i++)
+        // Tracks on the left of the
+        // head will be serviced when
+        // once the head comes back
+        // to the beginning (left end)
+        for(int i = 0; i < size; i++)
         {
-            // Find the best fit block for current process
-            int bestIdx = -1;
-            for (int j=0; j<m; j++)
-            {
-                if (blockSize[j] >= processSize[i])
-                {
-                    if (bestIdx == -1)
-                        bestIdx = j;
-                    else if (blockSize[bestIdx] > blockSize[j])
-                        bestIdx = j;
-                }
-            }
-
-            // If we could find a block for current process
-            if (bestIdx != -1)
-            {
-                // allocate block j to p[i] process
-                allocation[i] = bestIdx;
-
-                // Reduce available memory in this block.
-                blockSize[bestIdx] -= processSize[i];
-            }
+            if (arr[i] < head)
+                left.add(arr[i]);
+            if (arr[i] > head)
+                right.add(arr[i]);
         }
 
-        System.out.println("\nProcess No.\tProcess Size\tBlock no.");
-        for (int i = 0; i < n; i++)
+        // Sorting left and right vectors
+        Collections.sort(left);
+        Collections.sort(right);
+
+        // First service the requests
+        // on the right side of the
+        // head
+        for(int i = 0; i < right.size(); i++)
         {
-            System.out.print(" " + (i+1) + "\t\t\t" + processSize[i] + "\t\t\t\t");
-            if (allocation[i] != -1)
-                System.out.print(allocation[i] + 1);
-            else
-                System.out.print("Not Allocated");
-            System.out.println();
+            cur_track = right.get(i);
+
+            // Appending current track
+            // to seek sequence
+            seek_sequence.add(cur_track);
+
+            // Calculate absolute distance
+            distance = Math.abs(cur_track - head);
+
+            // Increase the total count
+            seek_count += distance;
+
+            // Accessed track is now new head
+            head = cur_track;
+        }
+
+        // Once reached the right end
+        // jump to the last track that
+        // is needed to be serviced in
+        // left direction
+        seek_count += Math.abs(head - left.get(0));
+        head = left.get(0);
+
+        // Now service the requests again
+        // which are left
+        for(int i = 0; i < left.size(); i++)
+        {
+            cur_track = left.get(i);
+
+            // Appending current track to
+            // seek sequence
+            seek_sequence.add(cur_track);
+
+            // Calculate absolute distance
+            distance = Math.abs(cur_track - head);
+
+            // Increase the total count
+            seek_count += distance;
+
+            // Accessed track is now the new head
+            head = cur_track;
+        }
+
+        System.out.println("Total number of seek " +
+                "operations = " + seek_count);
+
+        System.out.println("Seek Sequence is");
+
+        for(int i = 0; i < seek_sequence.size(); i++)
+        {
+            System.out.println(seek_sequence.get(i));
         }
     }
 
-    // Driver Method
-    public static void main(String[] args)
+    // Driver code
+    public static void main(String []args)
     {
-        int[] blockSize = {100, 500, 200, 300, 600};
-        int[] processSize = {212, 417, 112, 426};
-        int m = blockSize.length;
-        int n = processSize.length;
 
-        bestFit(blockSize, m, processSize, n);
+        // Request array
+        int arr[] = { 176, 79, 34, 60,
+                92, 11, 41, 114 };
+        int head = 50;
+
+        System.out.println("Initial position of head: " +
+                head);
+
+        CLOOK(arr, head);
     }
 }
+
+// This code is contributed by divyesh072019

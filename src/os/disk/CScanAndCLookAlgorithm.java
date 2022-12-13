@@ -56,7 +56,7 @@ class Disk {
     int distance;
     int direction; //0 : 왼쪽, 1 : 오른쪽
 
-    Queue<Integer> left = new PriorityQueue<>(Collections.reverseOrder());
+    Queue<Integer> left = new PriorityQueue<>();
     Queue<Integer> right = new PriorityQueue<>();
     List<Integer> seekSequence = new ArrayList<>();
 
@@ -93,9 +93,9 @@ class Disk {
     }
 
     public void seeking() {
-        if (direction == 0) {
+        /*if (direction == 0) {
             if (left.isEmpty()) {
-                moveHead(0);
+//                moveHead(0);
                 direction = 1;
                 return;
             }
@@ -105,7 +105,7 @@ class Disk {
             moveHead(seekTrack);
         } else {
             if (right.isEmpty()) {
-                moveHead(diskSize-1);
+//                moveHead(diskSize-1);
                 direction = 0;
                 return;
             }
@@ -113,6 +113,8 @@ class Disk {
             System.out.println("seek track : " + seekTrack);
             seekSequence.add(seekTrack);
             moveHead(seekTrack);
+        }*/
+        if (right.isEmpty()) {
         }
     }
 
@@ -122,7 +124,7 @@ class Disk {
     }
 }
 
-public class ScanAlgorithm {
+public class CScanAndCLookAlgorithm {
     public static void main(String[] args) {
         Disk disk = new Disk();
         Seek seek = new Seek(disk);
