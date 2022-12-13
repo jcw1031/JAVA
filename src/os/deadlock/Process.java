@@ -32,10 +32,6 @@ public class Process {
         return number;
     }
 
-    public List<Integer> getMax() {
-        return max;
-    }
-
     public String toString() {
         return this.allocation + "\t" + this.need + "\t" + this.max;
     }

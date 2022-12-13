@@ -24,7 +24,7 @@ public class WorstFit {
         emptyList.add(new Block(10000, 17000));
         emptyList.add(new Block(30000, 7000));
         emptyList.add(new Block(50000, 15000));
-        emptyList.add(new Block(100000, 50000));
+        emptyList.add(new Block(100000, 30000));
 
         request.add(new Process(12000));
         request.add(new Process(5000));
@@ -33,8 +33,9 @@ public class WorstFit {
 
     public static void placement() {
         int index = 0;
+        Process tmp = null;
         while (!request.isEmpty()) {
-            Process tmp = request.poll();
+            tmp = request.poll();
             emptyList.sort(Block::compareTo);
             if (!tmp.isAllocated()) {
                 for (Block block : emptyList) {
@@ -45,7 +46,9 @@ public class WorstFit {
                     }
                 }
             }
-
+            if (!tmp.isAllocated()) {
+                throw new IllegalArgumentException("process" + (index + 1) + " 을 적재할 수 없습니다!");
+            }
             System.out.println((index++)+1 + "\t\t\t" + tmp.getStart() + "\t\t" + tmp.getEnd() + "\t\t" + tmp.getSize());
         }
     }

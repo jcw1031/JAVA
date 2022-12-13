@@ -65,15 +65,27 @@ public class BankersAlgorithm {
             }
 
 
-            System.out.print("P" + (i + 1) + "의 Max(띄어쓰기로 자원 종류 구분) : ");
-            st = new StringTokenizer(br.readLine());
+            while (true) {
+                System.out.print("P" + (i + 1) + "의 Max(띄어쓰기로 자원 종류 구분) : ");
+                st = new StringTokenizer(br.readLine());
 
-            List<Integer> max = new ArrayList<>();
-            while (st.hasMoreTokens()) {
-                max.add(Integer.parseInt(st.nextToken()));
+                List<Integer> max = new ArrayList<>();
+                int index = 0;
+                boolean flag = true;
+                while (st.hasMoreTokens()) {
+                    int input = Integer.parseInt(st.nextToken());
+                    if (input < allocation.get(index++)) {
+                        flag = false;
+                    }
+                    max.add(input);
+                }
+                if (!flag) {
+                    System.out.println("max는 allcation보다 작을 수 없습니다!");
+                    continue;
+                }
+                processes[i] = new Process(allocation, max, i + 1);
+                break;
             }
-
-            processes[i] = new Process(allocation, max, i+1);
         }
 
         System.out.print("Available [예시 -> 2 3 1] : ");

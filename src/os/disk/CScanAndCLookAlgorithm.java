@@ -11,7 +11,7 @@ class Seek implements Runnable {
 
     @Override
     public void run() {
-        while (!disk.queueIsEmpty()) {
+        while (!disk.queue.isEmpty()) {
             disk.seeking();
             try {
                 Thread.sleep(5);
@@ -33,7 +33,7 @@ class Request implements Runnable {
 
     @Override
     public void run() {
-        while (!disk.queueIsEmpty()) {
+        while (!disk.queue.isEmpty()) {
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
@@ -54,10 +54,8 @@ class Disk {
     int diskSize;
     int head;
     int distance;
-    int direction; //0 : 왼쪽, 1 : 오른쪽
 
-    Queue<Integer> left = new PriorityQueue<>();
-    Queue<Integer> right = new PriorityQueue<>();
+    Queue<Integer> queue = new PriorityQueue<>();
     List<Integer> seekSequence = new ArrayList<>();
 
     public Disk () {
@@ -65,7 +63,6 @@ class Disk {
         diskSize = 200;
         head = 50;
         distance = 0;
-        direction = 0;
 
         for (int i = 0; i < arr.length; i++) {
             System.out.print("초기 ");
@@ -73,19 +70,13 @@ class Disk {
         }
     }
 
-    public boolean queueIsEmpty() {
-        return left.isEmpty() && right.isEmpty();
-    }
-
     public void receiveRequest(int track) {
-        if (queueIsEmpty() && distance != 0) {
+        if (queue.isEmpty() && distance != 0) {
             return;
         }
 
-        if (track < head) {
-            left.add(track);
-        } else if (track > head) {
-            right.add(track);
+        if (track != head) {
+            queue.add(track);
         } else {
             return;
         }
@@ -93,32 +84,31 @@ class Disk {
     }
 
     public void seeking() {
-        /*if (direction == 0) {
-            if (left.isEmpty()) {
-//                moveHead(0);
-                direction = 1;
-                return;
+        Queue<Integer> tmp = new LinkedList<>();
+        while (true) {
+            int seekTrack = queue.poll();
+            if (seekTrack < head) {
+                tmp.add(seekTrack);
+            } else {
+                System.out.println("seek track : " + seekTrack);
+                seekSequence.add(seekTrack);
+                moveHead(seekTrack);
+                if (queue.isEmpty() && !tmp.isEmpty()) {
+                    /*seekTrack = tmp.poll();
+                    moveHead(seekTrack);
+                    seekSequence.add(seekTrack);*/
+                }
+                while (!tmp.isEmpty()) {
+                    queue.add(tmp.poll());
+                }
+                break;
             }
-            int seekTrack = left.poll();
-            System.out.println("seek track : " + seekTrack);
-            seekSequence.add(seekTrack);
-            moveHead(seekTrack);
-        } else {
-            if (right.isEmpty()) {
-//                moveHead(diskSize-1);
-                direction = 0;
-                return;
-            }
-            int seekTrack = right.poll();
-            System.out.println("seek track : " + seekTrack);
-            seekSequence.add(seekTrack);
-            moveHead(seekTrack);
-        }*/
-        if (right.isEmpty()) {
         }
+
     }
 
     public void moveHead(int track) {
+        System.out.println("head was moved : " + track);
         distance += Math.abs((track - head));
         head = track;
     }
